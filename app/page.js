@@ -17,9 +17,10 @@ export default function Home() {
           <PostCard title={post.title} summary={post.summary} />
         </Link>
       ))}
+      
+      <div className="mt-8 text-center">
+        <p className="text-xl text-gray-600">سلام به وبلاگ من خوش اومدی! 😊</p>
+      </div>
     </main>
-    <div className="max-w-3xl mx-auto p-6">
-      <h1 className="text-4xl font-bold mb-6">سلام به وبلاگ من خوش اومدی</h1>
-    </div>
   );
 }

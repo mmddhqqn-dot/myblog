@@ -1,23 +1,44 @@
 import Link from "next/link";
 import PostCard from "../components/PostCard";
 
-const posts = [
-  { id: 1, slug: "hello-world", title: "سلام به وبلاگ من!", summary: "این اولین پست من در Next.js است." },
-  { id: 2, slug: "start-tailwind", title: "شروع پروژه با Tailwind", summary: "یاد می‌گیریم چطور از Tailwind CSS برای استایل‌دهی استفاده کنیم." },
-  { id: 3, slug: "nextjs-app-router", title: "Next.js App Router", summary: "آشنایی با ساختار App Router و صفحات داینامیک." },
-];
+// تابع برای دریافت پست‌ها از API
+async function getPosts() {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/api/posts`, {
+      cache: 'no-store' // برای دریافت داده‌های تازه
+    });
+    
+    if (!response.ok) {
+      throw new Error('خطا در دریافت پست‌ها');
+    }
+    
+    const result = await response.json();
+    return result.data || [];
+  } catch (error) {
+    console.error('خطا در دریافت پست‌ها:', error);
+    return [];
+  }
+}
 
-export default function Home() {
+export default async function Home() {
+  const posts = await getPosts();
+
   return (
     <main className="max-w-3xl mx-auto p-6">
       <h1 className="text-4xl font-bold mb-6">وبلاگ من</h1>
 
-      {posts.map((post) => (
-        <Link key={post.id} href={`/posts/${post.slug}`}>
-          <PostCard title={post.title} summary={post.summary} />
-        </Link>
-      ))}
-      
+      {posts.length > 0 ? (
+        posts.map((post) => (
+          <Link key={post.id} href={`/posts/${post.slug}`}>
+            <PostCard title={post.title} summary={post.summary} />
+          </Link>
+        ))
+      ) : (
+        <div className="text-center py-8">
+          <p className="text-gray-500">در حال بارگذاری پست‌ها...</p>
+        </div>
+      )}
+
       <div className="mt-8 text-center">
         <p className="text-xl text-gray-600">سلام به وبلاگ من خوش اومدی! 😊</p>
       </div>

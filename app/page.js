@@ -18,5 +18,8 @@ export default function Home() {
         </Link>
       ))}
     </main>
+    <div className="max-w-3xl mx-auto p-6">
+      <h1 className="text-4xl font-bold mb-6">سلام به وبلاگ من خوش اومدی</h1>
+    </div>
   );
 }

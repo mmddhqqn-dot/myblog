@@ -4,18 +4,23 @@ import PostCard from "../components/PostCard";
 // تابع برای دریافت پست‌ها از API
 async function getPosts() {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/api/posts`, {
-      cache: 'no-store' // برای دریافت داده‌های تازه
+    // استفاده از absolute URL برای production
+    const baseUrl = process.env.NODE_ENV === 'production' 
+      ? 'https://myblog-74vwguojn-mahdis-projects-3e182af4.vercel.app'
+      : 'http://localhost:3000';
+    
+    const response = await fetch(`${baseUrl}/api/posts`, {
+      cache: "no-store",
     });
-    
+
     if (!response.ok) {
-      throw new Error('خطا در دریافت پست‌ها');
+      throw new Error("خطا در دریافت پست‌ها");
     }
-    
+
     const result = await response.json();
     return result.data || [];
   } catch (error) {
-    console.error('خطا در دریافت پست‌ها:', error);
+    console.error("خطا در دریافت پست‌ها:", error);
     return [];
   }
 }

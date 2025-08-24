@@ -4,13 +4,8 @@ import PostCard from "../components/PostCard";
 // تابع برای دریافت پست‌ها از API
 async function getPosts() {
   try {
-    // استفاده از absolute URL برای production
-    const baseUrl =
-      process.env.NODE_ENV === "production"
-        ? "https://myblog-74vwguojn-mahdis-projects-3e182af4.vercel.app"
-        : "http://localhost:3000";
-
-    const response = await fetch(`${baseUrl}/api/posts`, {
+    // استفاده از relative URL (ساده‌تر و مطمئن‌تر)
+    const response = await fetch("/api/posts", {
       cache: "no-store",
     });
 
@@ -47,7 +42,7 @@ export default async function Home() {
 
       <div className="mt-8 text-center">
         <p className="text-xl text-gray-600">
-          سلام به وبلاگ من خوش اومدی! 😊 (آپدیت #3)
+          سلام به وبلاگ من خوش اومدی! 😊 (آپدیت #4)
         </p>
       </div>
     </main>

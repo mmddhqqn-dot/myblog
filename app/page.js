@@ -5,10 +5,11 @@ import PostCard from "../components/PostCard";
 async function getPosts() {
   try {
     // استفاده از absolute URL برای production
-    const baseUrl = process.env.NODE_ENV === 'production' 
-      ? 'https://myblog-74vwguojn-mahdis-projects-3e182af4.vercel.app'
-      : 'http://localhost:3000';
-    
+    const baseUrl =
+      process.env.NODE_ENV === "production"
+        ? "https://myblog-74vwguojn-mahdis-projects-3e182af4.vercel.app"
+        : "http://localhost:3000";
+
     const response = await fetch(`${baseUrl}/api/posts`, {
       cache: "no-store",
     });
@@ -45,7 +46,9 @@ export default async function Home() {
       )}
 
       <div className="mt-8 text-center">
-        <p className="text-xl text-gray-600">سلام به وبلاگ من خوش اومدی! 😊</p>
+        <p className="text-xl text-gray-600">
+          سلام به وبلاگ من خوش اومدی! 😊 (آپدیت #3)
+        </p>
       </div>
     </main>
   );
